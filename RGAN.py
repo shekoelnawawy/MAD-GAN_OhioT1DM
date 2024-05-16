@@ -20,6 +20,10 @@ begin = time()
 
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
+# Nawawy's start
+tf.compat.v1.disable_eager_execution()
+# Nawawy's end
+
 # --- get settings --- #
 # parse command line arguments, or use defaults
 parser = utils.rgan_options_parser()
