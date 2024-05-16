@@ -396,6 +396,8 @@ class LSTMCell(RNNCell):
       m_prev = array_ops.slice(state, [0, self._num_units], [-1, num_proj])
 
     dtype = inputs.dtype
+    print('dtype')
+    print(dtype)
     input_size = inputs.get_shape().with_rank(2)[1]
     if input_size.value is None:
       raise ValueError("Could not infer input size from inputs.get_shape()[-1]")
