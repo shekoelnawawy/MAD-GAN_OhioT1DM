@@ -20,6 +20,10 @@ from differential_privacy.privacy_accountant.tf import accountant
 Here, both the discriminator and generator were used to do the anomaly detection
 """
 
+# Nawawy's start
+tf.compat.v1.disable_eager_execution()
+# Nawawy's end
+
 # --- get settings --- #
 # parse command line arguments, or use defaults
 parser = utils.rgan_options_parser()
