@@ -1028,10 +1028,17 @@ def _linear(args, output_size, bias, bias_start=0.0, scope=None):
   Raises:
     ValueError: if some of the arguments has unspecified or wrong shape.
   """
-  if args is None or (nest.is_sequence(args) and not args):
+  # Nawawy's start
+  if args is None or (nest.is_sequence_or_composite(args) and not args):
     raise ValueError("`args` must be specified")
-  if not nest.is_sequence(args):
+  if not nest.is_sequence_or_composite(args):
     args = [args]
+
+  # if args is None or (nest.is_sequence(args) and not args):
+  #   raise ValueError("`args` must be specified")
+  # if not nest.is_sequence(args):
+  #   args = [args]
+  # Nawawy's end
 
   # Calculate the total size of arguments on dimension 1.
   total_arg_size = 0
