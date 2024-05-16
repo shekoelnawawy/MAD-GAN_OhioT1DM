@@ -51,7 +51,7 @@ for (k, v) in settings.items(): print(v, '\t', k)
 # WARNING: at this point a lot of variables appear
 locals().update(settings)
 json.dump(settings, open('./experiments/settings/' + identifier + '.txt', 'w'), indent=0)
-
+print(identifier)
 # --- build model --- #
 # preparation: data placeholders and model parameters
 Z, X, T = model.create_placeholders(batch_size, seq_length, latent_dim, num_variables)
