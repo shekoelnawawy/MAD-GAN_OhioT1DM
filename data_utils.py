@@ -462,6 +462,113 @@ def kdd99_test(seq_length, seq_step, num_signals):
     return samples, labels, index
 
 
+def ohiot1dm(seq_length, seq_step, num_signals):
+    train = np.load('./data/ohiot1dm_train.npy')
+    print('load ohiot1dm_train from .npy')
+    m, n = train.shape  # m=562387, n=35
+    # normalization
+    for i in range(n - 1):
+        # print('i=', i)
+        A = max(train[:, i])
+        # print('A=', A)
+        if A != 0:
+            train[:, i] /= max(train[:, i])
+            # scale from -1 to 1
+            train[:, i] = 2 * train[:, i] - 1
+        else:
+            train[:, i] = train[:, i]
+
+    samples = train[:, 0:n - 1]
+    labels = train[:, n - 1]  # the last colummn is label
+    #############################
+    ############################
+    # -- apply PCA dimension reduction for multi-variate GAN-AD -- #
+    from sklearn.decomposition import PCA
+    X_n = samples
+    ####################################
+    ###################################
+    # -- the best PC dimension is chosen pc=6 -- #
+    n_components = num_signals
+    pca = PCA(n_components, svd_solver='full')
+    pca.fit(X_n)
+    ex_var = pca.explained_variance_ratio_
+    pc = pca.components_
+    # projected values on the principal component
+    T_n = np.matmul(X_n, pc.transpose(1, 0))
+    samples = T_n
+    # # only for one-dimensional
+    # samples = T_n.reshape([samples.shape[0], ])
+    ###########################################
+    ###########################################
+    num_samples = (samples.shape[0] - seq_length) // seq_step
+    aa = np.empty([num_samples, seq_length, num_signals])
+    bb = np.empty([num_samples, seq_length, 1])
+
+    for j in range(num_samples):
+        bb[j, :, :] = np.reshape(labels[(j * seq_step):(j * seq_step + seq_length)], [-1, 1])
+        for i in range(num_signals):
+            aa[j, :, i] = samples[(j * seq_step):(j * seq_step + seq_length), i]
+
+    samples = aa
+    labels = bb
+
+    return samples, labels
+
+def ohiot1dm_test(seq_length, seq_step, num_signals):
+    test = np.load('./data/ohiot1dm_test.npy')
+    print('load ohiot1dm_test from .npy')
+
+    m, n = test.shape  # m1=494021, n1=35
+
+    for i in range(n - 1):
+        B = max(test[:, i])
+        if B != 0:
+            test[:, i] /= max(test[:, i])
+            # scale from -1 to 1
+            test[:, i] = 2 * test[:, i] - 1
+        else:
+            test[:, i] = test[:, i]
+
+    samples = test[:, 0:n - 1]
+    labels = test[:, n - 1]
+    idx = np.asarray(list(range(0, m)))  # record the idx of each point
+    #############################
+    ############################
+    # -- apply PCA dimension reduction for multi-variate GAN-AD -- #
+    from sklearn.decomposition import PCA
+    import DR_discriminator as dr
+    X_a = samples
+    ####################################
+    ###################################
+    # -- the best PC dimension is chosen pc=6 -- #
+    n_components = num_signals
+    pca_a = PCA(n_components, svd_solver='full')
+    pca_a.fit(X_a)
+    pc_a = pca_a.components_
+    # projected values on the principal component
+    T_a = np.matmul(X_a, pc_a.transpose(1, 0))
+    samples = T_a
+    # # only for one-dimensional
+    # samples = T_a.reshape([samples.shape[0], ])
+    ###########################################
+    ###########################################
+    num_samples_t = (samples.shape[0] - seq_length) // seq_step
+    aa = np.empty([num_samples_t, seq_length, num_signals])
+    bb = np.empty([num_samples_t, seq_length, 1])
+    bbb = np.empty([num_samples_t, seq_length, 1])
+
+    for j in range(num_samples_t):
+        bb[j, :, :] = np.reshape(labels[(j * seq_step):(j * seq_step + seq_length)], [-1, 1])
+        bbb[j, :, :] = np.reshape(idx[(j * seq_step):(j * seq_step + seq_length)], [-1, 1])
+        for i in range(num_signals):
+            aa[j, :, i] = samples[(j * seq_step):(j * seq_step + seq_length), i]
+
+    samples = aa
+    labels = bb
+    index = bbb
+
+    return samples, labels, index
+
 # ############################ data pre-processing #################################
 # --- to do with loading --- #
 # --- to do with loading --- #
@@ -565,6 +672,10 @@ def get_data(data_type, seq_length, seq_step, num_signals, sub_id, eval_single, 
         samples, labels = wadi(seq_length, seq_step, num_signals)
     elif data_type == 'wadi_test':
         samples, labels, index = wadi_test(seq_length, seq_step, num_signals)
+    elif data_type == 'ohiot1dm':
+        samples, labels = ohiot1dm(seq_length, seq_step, num_signals)
+    elif data_type == 'ohiot1dm_test':
+        samples, labels, index = ohiot1dm_test(seq_length, seq_step, num_signals)
     else:
         raise ValueError(data_type)
     print('Generated/loaded', len(samples), 'samples from data-type', data_type)
