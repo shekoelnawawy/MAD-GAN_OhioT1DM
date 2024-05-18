@@ -2,7 +2,7 @@
 "settings_file": "",
 "data": "ohiot1dm",
 "seq_length": 30,
-"num_signals": 6,
+"num_signals": 3,
 "normalise": false,
 "scale": 0.1,
 "freq_low": 1.0,
