@@ -42,5 +42,5 @@
 "dp_sigma": 1e-05,
 "use_time": false,
 "seq_step": 10,
-"num_generated_features": 6
+"num_generated_features": 3
 }
