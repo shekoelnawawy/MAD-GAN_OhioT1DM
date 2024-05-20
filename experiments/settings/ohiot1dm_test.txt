@@ -1,6 +1,6 @@
 {
 "settings_file": "",
-"data": "ohiot1dm_test",
+"data": "ohiot1dm_2020_test",
 "seq_length": 30,
 "num_signals": 3,
 "normalise": false,
@@ -33,7 +33,7 @@
 "eval_an": false,
 "eval_single": false,
 "wrong_labels": false,
-"identifier": "ohiot1dm_test",
+"identifier": "ohiot1dm_2020_test",
 "sub_id": "ohiot1dm",
 "dp": false,
 "l2norm_bound": 1e-05,
