@@ -80,6 +80,16 @@ class myADclass():
             print(T_mb.shape)
             print(T_mb.size)
             print('-------------------------------------------')
+            print('L_mmb')
+            print(L_mmb)
+            print(L_mmb.shape)
+            print(L_mmb.size)
+            print('-------------------------------------------')
+            print('I_mmb')
+            print(I_mmb)
+            print(I_mmb.shape)
+            print(I_mmb.size)
+            print('-------------------------------------------')
             para_path = './experiments/parameters/' + self.settings['sub_id'] + '_' + str(
                 self.settings['seq_length']) + '_' + str(self.epoch) + '.npy'
             D_t, L_t = DR_discriminator.dis_D_model(self.settings, T_mb, para_path)
