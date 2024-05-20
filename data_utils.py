@@ -515,8 +515,6 @@ def ohiot1dm(year, seq_length, seq_step, num_signals):
     return samples, labels
 
 def ohiot1dm_test(year, seq_length, seq_step, num_signals):
-    print(year)
-    print(type(year))
     test = np.load('./data/ohiot1dm_test_'+year+'.npy')
     print('load ohiot1dm_test from .npy')
 
