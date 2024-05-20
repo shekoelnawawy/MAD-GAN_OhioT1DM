@@ -75,6 +75,11 @@ class myADclass():
             T_mb = self.samples[T_index[batch_idx], :, :]
             L_mmb = self.labels[T_index[batch_idx], :, :]
             I_mmb = self.index[T_index[batch_idx], :, :]
+            print('T_mb')
+            print(T_mb)
+            print(T_mb.shape)
+            print(T_mb.size)
+            print('-------------------------------------------')
             para_path = './experiments/parameters/' + self.settings['sub_id'] + '_' + str(
                 self.settings['seq_length']) + '_' + str(self.epoch) + '.npy'
             D_t, L_t = DR_discriminator.dis_D_model(self.settings, T_mb, para_path)
