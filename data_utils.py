@@ -462,8 +462,8 @@ def kdd99_test(seq_length, seq_step, num_signals):
     return samples, labels, index
 
 
-def ohiot1dm(seq_length, seq_step, num_signals):
-    train = np.load('./data/ohiot1dm_train.npy')
+def ohiot1dm(year, seq_length, seq_step, num_signals):
+    train = np.load('./data/ohiot1dm_'+year+'+_train.npy')
     print('load ohiot1dm_train from .npy')
     m, n = train.shape  # m=562387, n=35
     # normalization
@@ -514,8 +514,8 @@ def ohiot1dm(seq_length, seq_step, num_signals):
 
     return samples, labels
 
-def ohiot1dm_test(seq_length, seq_step, num_signals):
-    test = np.load('./data/ohiot1dm_test.npy')
+def ohiot1dm_test(year, seq_length, seq_step, num_signals):
+    test = np.load('./data/ohiot1dm_'+year+'_test.npy')
     print('load ohiot1dm_test from .npy')
 
     m, n = test.shape  # m1=494021, n1=35
@@ -648,7 +648,7 @@ def get_samples_and_labels(settings):
     return samples, pdf, labels
 
 
-def get_data(data_type, seq_length, seq_step, num_signals, sub_id, eval_single, eval_an, data_options=None):
+def get_data(data_type, seq_length, seq_step, num_signals, sub_id, eval_single, eval_an, data_options=None, year=None):
     """
     Helper/wrapper function to get the requested data.
     """
@@ -672,10 +672,10 @@ def get_data(data_type, seq_length, seq_step, num_signals, sub_id, eval_single, 
         samples, labels = wadi(seq_length, seq_step, num_signals)
     elif data_type == 'wadi_test':
         samples, labels, index = wadi_test(seq_length, seq_step, num_signals)
-    elif data_type == 'ohiot1dm_2020' or data_type == 'ohiot1dm_2018':
-        samples, labels = ohiot1dm(seq_length, seq_step, num_signals)
-    elif data_type == 'ohiot1dm_2020_test' or data_type == 'ohiot1dm_2018_test':
-        samples, labels, index = ohiot1dm_test(seq_length, seq_step, num_signals)
+    elif data_type == 'ohiot1dm':
+        samples, labels = ohiot1dm(year, seq_length, seq_step, num_signals)
+    elif data_type == 'ohiot1dm_test':
+        samples, labels, index = ohiot1dm_test(year, seq_length, seq_step, num_signals)
     else:
         raise ValueError(data_type)
     print('Generated/loaded', len(samples), 'samples from data-type', data_type)
