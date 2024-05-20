@@ -463,7 +463,7 @@ def kdd99_test(seq_length, seq_step, num_signals):
 
 
 def ohiot1dm(year, seq_length, seq_step, num_signals):
-    train = np.load('./data/ohiot1dm_'+year+'_train.npy')
+    train = np.load('./data/ohiot1dm_train_'+year+'.npy')
     print('load ohiot1dm_train from .npy')
     m, n = train.shape  # m=562387, n=35
     # normalization
@@ -515,7 +515,7 @@ def ohiot1dm(year, seq_length, seq_step, num_signals):
     return samples, labels
 
 def ohiot1dm_test(year, seq_length, seq_step, num_signals):
-    test = np.load('./data/ohiot1dm_'+year+'_test.npy')
+    test = np.load('./data/ohiot1dm_test_'+year+'.npy')
     print('load ohiot1dm_test from .npy')
 
     m, n = test.shape  # m1=494021, n1=35
