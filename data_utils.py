@@ -672,9 +672,9 @@ def get_data(data_type, seq_length, seq_step, num_signals, sub_id, eval_single, 
         samples, labels = wadi(seq_length, seq_step, num_signals)
     elif data_type == 'wadi_test':
         samples, labels, index = wadi_test(seq_length, seq_step, num_signals)
-    elif data_type == 'ohiot1dm':
+    elif data_type == 'ohiot1dm_2020' or data_type == 'ohiot1dm_2018':
         samples, labels = ohiot1dm(seq_length, seq_step, num_signals)
-    elif data_type == 'ohiot1dm_test':
+    elif data_type == 'ohiot1dm_2020_test' or data_type == 'ohiot1dm_2018_test':
         samples, labels, index = ohiot1dm_test(seq_length, seq_step, num_signals)
     else:
         raise ValueError(data_type)
