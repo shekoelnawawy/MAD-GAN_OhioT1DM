@@ -8,6 +8,7 @@
 "num_signals": 3,
 "num_generated_features": 3,
 "seq_length": 30,
+"seq_step": 10,
 "normalise": false,
 "scale": 0.1,
 "freq_low": 1.0,
@@ -41,6 +42,5 @@
 "l2norm_bound": 1e-05,
 "batches_per_lot": 1,
 "dp_sigma": 1e-05,
-"use_time": false,
-"seq_step": 10
+"use_time": false
 }
