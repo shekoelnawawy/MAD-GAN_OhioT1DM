@@ -8,7 +8,7 @@
 "num_signals": 3,
 "num_generated_features": 3,
 "seq_length": 12,
-"seq_step": 1,
+"seq_step": 2,
 "normalise": false,
 "scale": 0.1,
 "freq_low": 1.0,

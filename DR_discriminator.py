@@ -222,80 +222,20 @@ def detection_statistic_I(D_test, L_mb, I_mb, seq_step, tao):
 def detection_D_I(DD, L_mb, I_mb, seq_step, tao):
     # point-wise detection for one dimension
 
-    print('DD')
-    print(DD)
-    print(DD.shape)
-    print(len(DD))
-    print('---------------------------------')
-    print('L_mb')
-    print(L_mb)
-    print(L_mb.shape)
-    print(len(L_mb))
-    print('---------------------------------')
-    print('I_mb')
-    print(I_mb)
-    print(I_mb.shape)
-    print(len(I_mb))
-    print('---------------------------------')
-    print('seq_step')
-    print(seq_step)
-    print('---------------------------------')
-    print('tao')
-    print(tao)
-    print('---------------------------------')
-
     aa = DD.shape[0] #500
     bb = DD.shape[1] #12
 
     LL = (aa-1)*seq_step+bb #511 #5020
 
-    print('aa')
-    print(aa)
-    print('---------------------------------')
-    print('bb')
-    print(bb)
-    print('---------------------------------')
-    print('LL')
-    print(LL)
-    print('---------------------------------')
+    DD = abs(DD.reshape([aa, bb])) #500,12
+    L_mb = L_mb .reshape([aa, bb]) #500,12
+    I_mb = I_mb .reshape([aa, bb]) #500,12
 
-    DD = abs(DD.reshape([aa, bb]))
-    L_mb = L_mb .reshape([aa, bb])
-    I_mb = I_mb .reshape([aa, bb])
-
-    print('DD')
-    print(DD)
-    print(DD.shape)
-    print(len(DD))
-    print('---------------------------------')
-    print('L_mb')
-    print(L_mb)
-    print(L_mb.shape)
-    print(len(L_mb))
-    print('---------------------------------')
-    print('I_mb')
-    print(I_mb)
-    print(I_mb.shape)
-    print(len(I_mb))
-    print('---------------------------------')
-
-    D_L = np.zeros([LL, 1])
-    L_L = np.zeros([LL, 1])
-
-    print('D_L')
-    print(D_L)
-    print(D_L.shape)
-    print(len(D_L))
-    print('---------------------------------')
-    print('L_L')
-    print(L_L)
-    print(L_L.shape)
-    print(len(L_L))
-    print('---------------------------------')
-
-    Count = np.zeros([LL, 1])
-    for i in range(0, aa):
-        for j in range(0, bb):
+    D_L = np.zeros([LL, 1]) #511,1
+    L_L = np.zeros([LL, 1]) #511,1
+    Count = np.zeros([LL, 1]) #511,1
+    for i in range(0, aa): #500
+        for j in range(0, bb): #12
             # print('index:', i*10+j)
             D_L[i*10+j] += DD[i, j]
             L_L[i * 10 + j] += L_mb[i, j]
