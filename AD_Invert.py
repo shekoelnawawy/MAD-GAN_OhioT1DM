@@ -97,12 +97,7 @@ class myADclass():
         #     tao = 0.1 * i
         tao = 0.5
         lam = 0.8
-        print('DL_test')
-        print(DL_test)
-        print(DL_test.shape)
-        print(len(DL_test))
-        print('---------------------------------')
-        exit(1)
+
         Accu1, Pre1, Rec1, F11, FPR1, D_L1 = DR_discriminator.detection_D_I(DL_test, L_mb, I_mb, self.settings['seq_step'], tao)
         print('seq_length:', self.settings['seq_length'])
         print('D:Comb-logits-based-Epoch: {}; tao={:.1}; Accu: {:.4}; Pre: {:.4}; Rec: {:.4}; F1: {:.4}; FPR: {:.4}'
