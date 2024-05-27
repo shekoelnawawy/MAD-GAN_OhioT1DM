@@ -34,9 +34,16 @@ if settings['settings_file']: settings = utils.load_settings_from_file(settings)
 # --- get data, split --- #
 data_path = './experiments/data/' + settings['data_load_from'] + '.data.npy'
 print('Loading data from', data_path)
+# samples, labels, index = data_utils.get_data(settings["data"], settings["seq_length"], settings["seq_step"],
+#                                              settings["num_signals"], settings["sub_id"], settings["eval_single"],
+#                                              settings["eval_an"], data_path, settings["year"])
+
+# Nawawy's start
 samples, labels, index = data_utils.get_data(settings["data"], settings["seq_length"], settings["seq_step"],
                                              settings["num_signals"], settings["sub_id"], settings["eval_single"],
                                              settings["eval_an"], data_path, settings["year"])
+# Nawawy's end
+
 # --- save settings, data --- #
 # no need
 print('Ready to run with settings:')

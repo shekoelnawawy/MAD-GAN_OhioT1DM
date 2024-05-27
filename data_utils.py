@@ -647,8 +647,9 @@ def get_samples_and_labels(settings):
 
     return samples, pdf, labels
 
-
+# Nawawy's start
 def get_data(data_type, seq_length, seq_step, num_signals, sub_id, eval_single, eval_an, data_options=None, year=None):
+# Nawawy's end
     """
     Helper/wrapper function to get the requested data.
     """
