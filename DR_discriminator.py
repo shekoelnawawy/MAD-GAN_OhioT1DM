@@ -223,23 +223,29 @@ def detection_D_I(DD, L_mb, I_mb, seq_step, tao):
     # point-wise detection for one dimension
 
     aa = DD.shape[0] #500
-    bb = DD.shape[1] #12
+    bb = DD.shape[1] #30 #12
 
-    LL = (aa-1)*seq_step+bb #511 #5020
+    LL = (aa-1)*seq_step+bb #5020 #511
 
-    DD = abs(DD.reshape([aa, bb])) #500,12
-    L_mb = L_mb .reshape([aa, bb]) #500,12
-    I_mb = I_mb .reshape([aa, bb]) #500,12
+    DD = abs(DD.reshape([aa, bb])) #500,30 #500,12
+    L_mb = L_mb .reshape([aa, bb]) #500,30 #500,12
+    I_mb = I_mb .reshape([aa, bb]) #500,30 #500,12
 
-    D_L = np.zeros([LL, 1]) #511,1
-    L_L = np.zeros([LL, 1]) #511,1
-    Count = np.zeros([LL, 1]) #511,1
+    D_L = np.zeros([LL, 1]) #5020,1 #511,1
+    L_L = np.zeros([LL, 1]) #5020,1 #511,1
+    Count = np.zeros([LL, 1]) #5020,1 #511,1
     for i in range(0, aa): #500
-        for j in range(0, bb): #12
-            # print('index:', i*10+j)
-            D_L[i*10+j] += DD[i, j]
-            L_L[i * 10 + j] += L_mb[i, j]
-            Count[i * 10 + j] += 1
+        for j in range(0, bb): #30 #12
+            # # print('index:', i*10+j)
+            # D_L[i*10+j] += DD[i, j]
+            # L_L[i * 10 + j] += L_mb[i, j]
+            # Count[i * 10 + j] += 1
+
+            # Nawawy's start
+            D_L[i*seq_step+j] += DD[i, j]
+            L_L[i * seq_step + j] += L_mb[i, j]
+            Count[i * seq_step + j] += 1
+            # Nawawy's end
 
     D_L /= Count
     L_L /= Count
