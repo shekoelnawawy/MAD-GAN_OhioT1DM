@@ -319,11 +319,19 @@ def detection_R_D_I(DD, Gs, T_mb, L_mb, seq_step, tao, lam):
     Count = np.zeros([LL, 1])
     for i in range(0, aa):
         for j in range(0, bb):
-            # print('index:', i*10+j)
-            D_L[i * 10 + j] += DD[i, j]
-            L_L[i * 10 + j] += L_mb[i, j]
-            R_L[i * 10 + j] += R[i, j]
-            Count[i * 10 + j] += 1
+            # # print('index:', i*10+j)
+            # D_L[i * 10 + j] += DD[i, j]
+            # L_L[i * 10 + j] += L_mb[i, j]
+            # R_L[i * 10 + j] += R[i, j]
+            # Count[i * 10 + j] += 1
+
+            # Nawawy's start
+            D_L[i * seq_step + j] += DD[i, j]
+            L_L[i * seq_step + j] += L_mb[i, j]
+            R_L[i * seq_step + j] += R[i, j]
+            Count[i * seq_step + j] += 1
+            # Nawawy's end
+
     D_L /= Count
     L_L /= Count
     R_L /= Count
@@ -390,10 +398,16 @@ def detection_R_I(Gs, T_mb, L_mb, seq_step, tao):
     Count = np.zeros([LL, 1])
     for i in range(0, aa):
         for j in range(0, bb):
-            # print('index:', i*10+j)
-            L_L[i * 10 + j] += L_mb[i, j]
-            R_L[i * 10 + j] += R[i, j]
-            Count[i * 10 + j] += 1
+            # # print('index:', i*10+j)
+            # L_L[i * 10 + j] += L_mb[i, j]
+            # R_L[i * 10 + j] += R[i, j]
+            # Count[i * 10 + j] += 1
+
+            # Nawawy's start
+            L_L[i * seq_step + j] += L_mb[i, j]
+            R_L[i * seq_step + j] += R[i, j]
+            Count[i * seq_step + j] += 1
+            # Nawawy's end
     L_L /= Count
     R_L /= Count
 
