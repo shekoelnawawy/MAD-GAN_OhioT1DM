@@ -4,7 +4,7 @@
 "data": "ohiot1dm_test",
 "identifier": "ohiot1dm_test",
 "sub_id": "ohiot1dm",
-"num_epochs": 5,
+"num_epochs": 100,
 "num_signals": 3,
 "num_generated_features": 3,
 "seq_length": 30,
