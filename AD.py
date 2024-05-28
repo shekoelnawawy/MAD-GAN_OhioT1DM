@@ -45,7 +45,7 @@ settings["eval_an"] = False
 # Nawawy's start
 samples, labels, index = data_utils.get_data(settings["data"], settings["seq_length"], settings["seq_step"],
                                              settings["num_signals"], settings["sub_id"], settings["eval_single"],
-                                             settings["eval_an"], data_path, settings["year"])
+                                             settings["eval_an"], data_path, settings["year"], settings["patient"])
 # Nawawy's end
 
 # --- save settings, data --- #
