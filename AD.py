@@ -12,8 +12,8 @@ import data_utils
 
 # from pyod.utils.utility import *
 from sklearn.utils.validation import *
-from sklearn.metrics.classification import *
-from sklearn.metrics.ranking import *
+# from sklearn.metrics.classification import *
+# from sklearn.metrics.ranking import *
 from time import time
 
 begin = time()
