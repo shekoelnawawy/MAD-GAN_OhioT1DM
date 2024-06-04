@@ -1,9 +1,9 @@
 {
 "settings_file": "",
 "year": "2020",
-"patient": "5",
-"data": "ohiot1dm_test",
-"identifier": "ohiot1dm_test",
+"patient": "0",
+"data": "ohiot1dm_test_patient_wise",
+"identifier": "ohiot1dm_test_patient_wise",
 "sub_id": "ohiot1dm",
 "num_epochs": 100,
 "num_signals": 3,
