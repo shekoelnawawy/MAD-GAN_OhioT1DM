@@ -1,6 +1,10 @@
 import os
 
-os.system('mkdir ./output')
+if os.path.exists('./output'):
+    os.system('"yes" yes | rm -r ./output')
+else:
+    os.system('mkdir ./output')
+
 # with is like your try .. finally block in this case
 with open('./experiments/settings/ohiot1dm.txt', 'r') as train_file:
     # read a list of lines into data
@@ -34,4 +38,4 @@ for run in range(10):
                 test_file.writelines(test_data)
 
             print('Year: '+str(year)+'\tPatient: '+str(patient))
-            os.system('python AD.py --settings_file ohiot1dm.txt > ./output/test_run_' + str(run) + '_patient_' + str(year) + '_' + str(patient) +'.txt')
+            os.system('python AD.py --settings_file ohiot1dm_test > ./output/test_run_' + str(run) + '_patient_' + str(year) + '_' + str(patient) +'.txt')
