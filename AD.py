@@ -26,6 +26,7 @@ Here, only the discriminator was used to do the anomaly detection
 
 # Nawawy's start
 tf.compat.v1.disable_eager_execution()
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 # Nawawy's end
 
 # --- get settings --- #
