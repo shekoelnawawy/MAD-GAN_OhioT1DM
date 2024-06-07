@@ -2,8 +2,8 @@ import os
 
 if os.path.exists('./output'):
     os.system('"yes" yes | rm -r ./output')
-else:
-    os.system('mkdir ./output')
+
+os.system('mkdir ./output')
 
 # with is like your try .. finally block in this case
 with open('./experiments/settings/ohiot1dm.txt', 'r') as train_file:
