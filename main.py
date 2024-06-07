@@ -1,5 +1,6 @@
 import os
 
+os.system('mkdir ./output')
 # with is like your try .. finally block in this case
 with open('./experiments/settings/ohiot1dm.txt', 'r') as train_file:
     # read a list of lines into data
