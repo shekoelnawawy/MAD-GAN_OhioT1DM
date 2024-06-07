@@ -1,3 +1,7 @@
+# Nawawy's start
+import logging
+logging.getLogger('tensorflow').disabled = True
+# Nawawy's end
 import tensorflow as tf
 import numpy as np
 import pdb

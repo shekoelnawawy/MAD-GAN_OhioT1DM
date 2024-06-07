@@ -12,7 +12,7 @@ with open('./experiments/settings/ohiot1dm.txt', 'r') as train_file:
 
 for run in range(10):
     # now change the 2nd line, note that you have to add a newline
-    train_data[3] = "\"patient\": \"" + str(run) + "\","
+    train_data[3] = "\"patient\": \"" + str(run) + "\",\n"
 
     # and write everything back
     with open('./experiments/settings/ohiot1dm.txt', 'w') as train_file:
@@ -28,10 +28,10 @@ for run in range(10):
 
     print('Testing: ')
     for year in [2020, 2018]:
-        test_data[2] = "\"year\": \"" + str(year) + "\","
+        test_data[2] = "\"year\": \"" + str(year) + "\",\n"
 
         for patient in range(6):
-            test_data[3] = "\"patient\": \"" + str(patient) + "\","
+            test_data[3] = "\"patient\": \"" + str(patient) + "\",\n"
 
             # and write everything back
             with open('./experiments/settings/ohiot1dm_test.txt', 'w') as test_file:
