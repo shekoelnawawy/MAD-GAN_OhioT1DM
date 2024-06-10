@@ -1,6 +1,6 @@
 {
 "settings_file": "",
-"year": "samples",
+"year": "all",
 "patient": "0",
 "data": "ohiot1dm_patient_wise",
 "identifier": "ohiot1dm_patient_wise",
