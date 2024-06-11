@@ -12,6 +12,7 @@ with open('./experiments/settings/ohiot1dm.txt', 'r') as train_file:
 
 # now change the 2nd line, note that you have to add a newline
 train_data[2] = "\"year\": \"most\",\n"
+train_data[3] = "\"patient\": \"0\",\n"
 
 # and write everything back
 with open('./experiments/settings/ohiot1dm.txt', 'w') as train_file:
