@@ -1,4 +1,5 @@
 import os
+import numpy as np
 
 if os.path.exists('./output'):
     os.system('"yes" yes | rm -r ./output')
@@ -54,6 +55,107 @@ for year in [2020, 2018]:
 out.close()
 
 print('-----------------------------------------------------------------------------------------------------------------------------')
+
+# with is like your try .. finally block in this case
+with open('./experiments/settings/ohiot1dm.txt', 'r') as train_file:
+    # read a list of lines into data
+    train_data = train_file.readlines()
+
+# now change the 2nd line, note that you have to add a newline
+train_data[2] = "\"year\": \"least\",\n"
+train_data[3] = "\"patient\": \"0\",\n"
+
+# and write everything back
+with open('./experiments/settings/ohiot1dm.txt', 'w') as train_file:
+    train_file.writelines(train_data)
+
+print('Training:')
+os.system('mkdir ./output/least')
+os.system('python RGAN.py --settings_file ohiot1dm > ./output/least/train.txt')
+
+# with is like your try .. finally block in this case
+with open('./experiments/settings/ohiot1dm_test.txt', 'r') as test_file:
+    # read a list of lines into data
+    test_data = test_file.readlines()
+
+print('Testing: ')
+for year in [2020, 2018]:
+    test_data[2] = "\"year\": \"" + str(year) + "\",\n"
+
+    for patient in range(6):
+        test_data[3] = "\"patient\": \"" + str(patient) + "\",\n"
+
+        # and write everything back
+        with open('./experiments/settings/ohiot1dm_test.txt', 'w') as test_file:
+            test_file.writelines(test_data)
+
+        print('Year: '+str(year)+'\tPatient: '+str(patient))
+        os.system('python AD.py --settings_file ohiot1dm_test > ./output/least/test_least_patient_' + str(year) + '_' + str(patient) +'.txt')
+
+
+out = open("./output/least/Results.csv", "w")
+out.write('Year,Patient,Accuracy,Precision,Recall,F1\n')
+
+for year in [2020, 2018]:
+    for patient in range(6):
+        with open('./output/least/test_least_patient_'+str(year)+'_'+str(patient)+'.txt', 'r') as file:
+            # read a list of lines into data
+            data = file.readlines()
+            out.write(str(year)+','+str(patient)+','+str(data[-3].split(' ')[4][:-1])+','+str(data[-3].split(' ')[6][:-1])+','+str(data[-3].split(' ')[8][:-1])+','+str(data[-3].split(' ')[10]))
+out.close()
+
+print('-----------------------------------------------------------------------------------------------------------------------------')
+
+# with is like your try .. finally block in this case
+with open('./experiments/settings/ohiot1dm.txt', 'r') as train_file:
+    # read a list of lines into data
+    train_data = train_file.readlines()
+
+# now change the 2nd line, note that you have to add a newline
+train_data[2] = "\"year\": \"all\",\n"
+train_data[3] = "\"patient\": \"0\",\n"
+
+# and write everything back
+with open('./experiments/settings/ohiot1dm.txt', 'w') as train_file:
+    train_file.writelines(train_data)
+
+print('Training:')
+os.system('mkdir ./output/all')
+os.system('python RGAN.py --settings_file ohiot1dm > ./output/all/train.txt')
+
+# with is like your try .. finally block in this case
+with open('./experiments/settings/ohiot1dm_test.txt', 'r') as test_file:
+    # read a list of lines into data
+    test_data = test_file.readlines()
+
+print('Testing: ')
+for year in [2020, 2018]:
+    test_data[2] = "\"year\": \"" + str(year) + "\",\n"
+
+    for patient in range(6):
+        test_data[3] = "\"patient\": \"" + str(patient) + "\",\n"
+
+        # and write everything back
+        with open('./experiments/settings/ohiot1dm_test.txt', 'w') as test_file:
+            test_file.writelines(test_data)
+
+        print('Year: '+str(year)+'\tPatient: '+str(patient))
+        os.system('python AD.py --settings_file ohiot1dm_test > ./output/all/test_all_patient_' + str(year) + '_' + str(patient) +'.txt')
+
+
+out = open("./output/all/Results.csv", "w")
+out.write('Year,Patient,Accuracy,Precision,Recall,F1\n')
+
+for year in [2020, 2018]:
+    for patient in range(6):
+        with open('./output/all/test_all_patient_'+str(year)+'_'+str(patient)+'.txt', 'r') as file:
+            # read a list of lines into data
+            data = file.readlines()
+            out.write(str(year)+','+str(patient)+','+str(data[-3].split(' ')[4][:-1])+','+str(data[-3].split(' ')[6][:-1])+','+str(data[-3].split(' ')[8][:-1])+','+str(data[-3].split(' ')[10]))
+out.close()
+
+print('-----------------------------------------------------------------------------------------------------------------------------')
+
 
 
 # with is like your try .. finally block in this case
@@ -360,6 +462,70 @@ for year in [2020, 2018]:
             out.write(str(year)+','+str(patient)+','+str(data[-3].split(' ')[4][:-1])+','+str(data[-3].split(' ')[6][:-1])+','+str(data[-3].split(' ')[8][:-1])+','+str(data[-3].split(' ')[10]))
 out.close()
 
+print('-----------------------------------------------------------------------------------------------------------------------------')
+
+# with is like your try .. finally block in this case
+with open('./experiments/settings/ohiot1dm.txt', 'r') as train_file:
+    # read a list of lines into data
+    train_data = train_file.readlines()
+
+# now change the 2nd line, note that you have to add a newline
+train_data[2] = "\"year\": \"samples\",\n"
+
+for run in range(10):
+    # now change the 2nd line, note that you have to add a newline
+    train_data[3] = "\"patient\": \"" + str(run) + "\",\n"
+
+    # and write everything back
+    with open('./experiments/settings/ohiot1dm.txt', 'w') as train_file:
+        train_file.writelines(train_data)
+
+    print('Training:')
+    os.system('mkdir ./output/samples')
+    os.system('python RGAN.py --settings_file ohiot1dm > ./output/samples/train_'+ str(run) + '.txt')
+
+    # with is like your try .. finally block in this case
+    with open('./experiments/settings/ohiot1dm_test.txt', 'r') as test_file:
+        # read a list of lines into data
+        test_data = test_file.readlines()
+
+    print('Testing: ')
+    for year in [2020, 2018]:
+        test_data[2] = "\"year\": \"" + str(year) + "\",\n"
+
+        for patient in range(6):
+            test_data[3] = "\"patient\": \"" + str(patient) + "\",\n"
+
+            # and write everything back
+            with open('./experiments/settings/ohiot1dm_test.txt', 'w') as test_file:
+                test_file.writelines(test_data)
+
+            print('Year: '+str(year)+'\tPatient: '+str(patient))
+            os.system('python AD.py --settings_file ohiot1dm_test > ./output/samples/test_run_' + str(run) + '_patient_' + str(year) + '_' + str(patient) +'.txt')
+
+
+out = open("./output/samples/Results.csv", "w")
+out.write('Run,Year,Patient,Accuracy,Precision,Recall,F1\n')
+
+for year in [2020, 2018]:
+    for patient in range(6):
+        Accuracy = []
+        Precision = []
+        Recall = []
+        F1 = []
+        for run in range(10):
+            with open('./output/samples/test_run_'+str(run)+'_patient_'+str(year)+'_'+str(patient)+'.txt', 'r') as file:
+                # read a list of lines into data
+                data = file.readlines()
+            Accuracy.append(float(data[-3].split(' ')[4][:-1]))
+            Precision.append(float(data[-3].split(' ')[6][:-1]))
+            Recall.append(float(data[-3].split(' ')[8][:-1]))
+            F1.append(float(data[-3].split(' ')[10][:-1]))
+            out.write(str(run)+','+str(year)+','+str(patient)+','+str(data[-3].split(' ')[4][:-1])+','+str(data[-3].split(' ')[6][:-1])+','+str(data[-3].split(' ')[8][:-1])+','+str(data[-3].split(' ')[10]))
+        out.write('Average,'+str(year)+','+str(patient)+','+str(np.average(np.array(Accuracy)))+','+str(np.average(np.array(Precision)))+','+str(np.average(np.array(Recall)))+','+str(np.average(np.array(F1)))+'\n')
+out.close()
+
+
 
 # import os
 #
@@ -402,67 +568,3 @@ out.close()
 #         out.write(str(year)+','+str(patient)+','+str(data[-3].split(' ')[4][:-1])+','+str(data[-3].split(' ')[6][:-1])+','+str(data[-3].split(' ')[8][:-1])+','+str(data[-3].split(' ')[10]))
 # out.close()
 
-
-# import os
-# import numpy as np
-# if os.path.exists('./output'):
-#     os.system('"yes" yes | rm -r ./output')
-#
-# os.system('mkdir ./output')
-#
-# # with is like your try .. finally block in this case
-# with open('./experiments/settings/ohiot1dm.txt', 'r') as train_file:
-#     # read a list of lines into data
-#     train_data = train_file.readlines()
-#
-# for run in range(10):
-#     # now change the 2nd line, note that you have to add a newline
-#     train_data[3] = "\"patient\": \"" + str(run) + "\",\n"
-#
-#     # and write everything back
-#     with open('./experiments/settings/ohiot1dm.txt', 'w') as train_file:
-#         train_file.writelines(train_data)
-#
-#     print('Training: '+str(run))
-#     os.system('python RGAN.py --settings_file ohiot1dm > ./output/train_'+ str(run) + '.txt')
-#
-#     # with is like your try .. finally block in this case
-#     with open('./experiments/settings/ohiot1dm_test.txt', 'r') as test_file:
-#         # read a list of lines into data
-#         test_data = test_file.readlines()
-#
-#     print('Testing: ')
-#     for year in [2020, 2018]:
-#         test_data[2] = "\"year\": \"" + str(year) + "\",\n"
-#
-#         for patient in range(6):
-#             test_data[3] = "\"patient\": \"" + str(patient) + "\",\n"
-#
-#             # and write everything back
-#             with open('./experiments/settings/ohiot1dm_test.txt', 'w') as test_file:
-#                 test_file.writelines(test_data)
-#
-#             print('Year: '+str(year)+'\tPatient: '+str(patient))
-#             os.system('python AD.py --settings_file ohiot1dm_test > ./output/test_run_' + str(run) + '_patient_' + str(year) + '_' + str(patient) +'.txt')
-#
-#
-# out = open("./output/Results.csv", "w")
-# out.write('Run,Year,Patient,Accuracy,Precision,Recall,F1\n')
-#
-# for year in [2020, 2018]:
-#     for patient in range(6):
-#         Accuracy = []
-#         Precision = []
-#         Recall = []
-#         F1 = []
-#         for run in range(10):
-#             with open('./output/test_run_'+str(run)+'_patient_'+str(year)+'_'+str(patient)+'.txt', 'r') as file:
-#                 # read a list of lines into data
-#                 data = file.readlines()
-#             Accuracy.append(float(data[-3].split(' ')[4][:-1]))
-#             Precision.append(float(data[-3].split(' ')[6][:-1]))
-#             Recall.append(float(data[-3].split(' ')[8][:-1]))
-#             F1.append(float(data[-3].split(' ')[10][:-1]))
-#             out.write(str(run)+','+str(year)+','+str(patient)+','+str(data[-3].split(' ')[4][:-1])+','+str(data[-3].split(' ')[6][:-1])+','+str(data[-3].split(' ')[8][:-1])+','+str(data[-3].split(' ')[10]))
-#         out.write('Average,'+str(year)+','+str(patient)+','+str(np.average(np.array(Accuracy)))+','+str(np.average(np.array(Precision)))+','+str(np.average(np.array(Recall)))+','+str(np.average(np.array(F1)))+'\n')
-# out.close()
