@@ -46,7 +46,7 @@ samples, labels, index = data_utils.get_data(settings["data"], settings["seq_len
                                              settings["num_signals"], settings['sub_id'], settings["eval_single"],
                                              settings["eval_an"], data_path, settings["year"], settings["patient"])
 # Nawawy's end
-#check
+
 print('samples_size:',samples.shape)
 # -- number of variables -- #
 num_variables = samples.shape[2]
