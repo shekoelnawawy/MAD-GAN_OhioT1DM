@@ -11,7 +11,9 @@ import model
 from scipy.spatial.distance import pdist, squareform
 from scipy.stats import multivariate_normal, invgamma, mode
 from scipy.special import gamma
-from scipy.misc.pilutil import imresize
+# Nawawy's start
+# from scipy.misc.pilutil import imresize
+# Nawawy's end
 from functools import partial
 from math import ceil
 
