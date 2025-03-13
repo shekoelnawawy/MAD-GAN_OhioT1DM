@@ -16,7 +16,13 @@ Please refer to https://github.com/ratschlab/RGAN for the original code.
 
 ## Quickstart
 
-- Python3
+- Python3.6
+
+- Create a virtual environment: virtualenv --python="/usr/bin/python3.6" /path/to/new/virtualenv/
+
+- Activate virtual environment: source virtualenv/bin/activate
+
+- Run setup.py
 
 - Please unpack the data.7z file in the data folder before run RGAN.py and AD.py
 
